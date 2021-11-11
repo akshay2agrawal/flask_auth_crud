@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+    <div class="notification is-danger">
+        {{ messages[0] }}
+    </div>
+{% endif %}
+{% endwith %}
+
+<div class="box">
+<form action="/login" method="POST">
+  {{form.hidden_tag()}}
+  <div class="field"><div class="control">{{ form.username.label }}: {{ form.username(class="input is-large", placeholder="Email") }}</div></div>
+  {% if form.username.errors %}
+  <ul class="errors">{% for error in form.username.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+  {% endif %}
+
+  <div class="field"><div class="control">{{ form.password.label }}: {{ form.password(class="input is-large", placeholder="Password") }}</div></div>
+  {% if form.password.errors %}
+  <ul class="errors">{% for error in form.password.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+  {% endif %}    
+  
+  <div class="field">
+  <label class="checkbox">
+    <input type="checkbox" checked="checked" name="remember"> Remember me
+  </label>
+  </div>
+
+  <div class="field"> {{ form.submit(class="button is-block is-info is-large is-fullwidth") }}</div>
+
+</form>
+
+{% endblock %}
